@@ -2,17 +2,15 @@ import { useEffect } from "react";
 
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
   useEffect(() => {
-    // The problem is remove this timer when the modal is closed.
-    // When having a function in pointer it could lead to infinite loop.
     const timer = setTimeout(() => {
-      console.log("SET TIMEOUT");
       onConfirm();
     }, 3000);
+
     return () => {
-      console.log("CLEAR TIMEOUT");
       clearTimeout(timer);
     };
-  }, []);
+  }, [onConfirm]);
+
   return (
     <div id="delete-confirmation">
       <h2>Are you sure?</h2>

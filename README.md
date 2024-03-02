@@ -8,14 +8,18 @@ https://github.com/academind/react-complete-guide-course-resources/tree/main/cod
 
 ## useEffect()
 
+A Side Effect concern piece of code not straight bound to the main goal of the app.
+E.G navigator.geolocation.getCurrentPosition()
+
 // SIDE EFFECT//
-// If using useState straight => infinite loop.
-// Side Effect: it is not straight bound to the main goal of this app.
+useEffect(function(), [pointer]) is executed after the App rebuild.
+If the second parameter ([pointer]) is empty, this hook will be executed once
+otherwise it will be executed on each App rebuild.
 
-// To do it we need useEffect() hook.
-// This code will be executed after the App will be executed.
-// If the second parameter is empty, this hook will be executed once
-// Otherwise it will be executed on each App rebuild.
+Add a return into the useEffect() hook . E.G clearTimeout() when the modal is closed.
+When having a function as pointer it could lead to infinite loop => useCallback() hook.
 
-      // The problem is remove this timer when the modal is closed.
-    // When having a function in pointer it could lead to infinite loop.
+## useCallback()
+
+Used to avoid a function to be re-executed.
+wrapp the function and return it (second parameter).

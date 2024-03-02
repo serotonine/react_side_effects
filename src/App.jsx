@@ -18,7 +18,7 @@ function App() {
   localStorage.setItem("selectedPlaces", JSON.stringify(pickedPlaces));
   // SIDE EFFECT//
   // If using useState straight => infinite loop.
-  // Side Effect: it is not straight bound to te main goal of this app.
+  // Side Effect: it is not straight bound to the main goal of this app.
 
   // To do it we need useEffect() hook.
   // This code will be executed after the App will be executed.
@@ -63,7 +63,7 @@ function App() {
 
   return (
     <>
-      <Modal isOpen={isModalOpen}>
+      <Modal isOpen={isModalOpen} onClose={handleStopRemovePlace}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}
           onConfirm={handleRemovePlace}

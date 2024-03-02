@@ -8,14 +8,11 @@ import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 
 // Get Stored pickedPlaces if any.
-const _pickedPlaces = localStorage.getItem("selectedPlaces")
-  ? JSON.parse(localStorage.getItem("selectedPlaces"))
-  : [];
-console.log(JSON.parse(localStorage.getItem("selectedPlaces")));
+const _pickedPlaces = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 
 function App() {
-  const modal = useRef();
   const selectedPlace = useRef();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [pickedPlaces, setPickedPlaces] = useState(_pickedPlaces);
   const [availablePlaces, setAvailablePlaces] = useState([]);
   localStorage.setItem("selectedPlaces", JSON.stringify(pickedPlaces));
@@ -39,12 +36,12 @@ function App() {
   }, []);
 
   function handleStartRemovePlace(id) {
-    modal.current.open();
+    setIsModalOpen(true);
     selectedPlace.current = id;
   }
 
   function handleStopRemovePlace() {
-    modal.current.close();
+    setIsModalOpen(false);
   }
 
   function handleSelectPlace(id) {
@@ -61,12 +58,12 @@ function App() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
-    modal.current.close();
+    setIsModalOpen(false);
   }
 
   return (
     <>
-      <Modal ref={modal}>
+      <Modal isOpen={isModalOpen}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}
           onConfirm={handleRemovePlace}
